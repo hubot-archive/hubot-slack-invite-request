@@ -1,22 +1,27 @@
 {
-  "name": "hubot-example",
-  "description": "An example script pacakage for Hubot",
-  "version": "1.0.0",
-  "author": "Tom Bell <tomb@tomb.io>",
+  "name": "hubot-ingress",
+  "description": "Ingress commands for Hubot",
+  "version": "0.1.0",
+  "author": {
+    "name": "Kevin Lanni",
+    "email": "therealklanni@gmail.com",
+    "url": "https://github.com/therealklanni"
+  },
   "license": "MIT",
 
   "keywords": [
     "hubot",
-    "hubot-scripts"
+    "hubot-scripts",
+    "ingress"
   ],
 
   "repository": {
     "type": "git",
-    "url": "git://github.com/hubot-scripts/hubot-example.git"
+    "url": "git://github.com/therealklanni/hubot-ingress.git"
   },
 
   "bugs": {
-    "url": "https://github.com/hubot-scripts/hubot-example/issues"
+    "url": "https://github.com/therealklanni/hubot-ingress/issues"
   },
 
   "dependencies": {
