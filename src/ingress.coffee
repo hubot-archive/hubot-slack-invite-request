@@ -62,9 +62,9 @@ module.exports = (robot) ->
     if badgeName in badgeList
       userBadges.push ":#{badgeName}:"
       if who.name == msg.envelope.user.name
-	msg.reply "Congrats on earning the :#{badgeName}: badge!"
+        msg.reply "Congrats on earning the :#{badgeName}: badge!"
       else
-	msg.send "@#{who.name}: congrats on earning the :#{badgeName}: badge!"
+        msg.send "@#{who.name}: congrats on earning the :#{badgeName}: badge!"
     else
       msg.reply "Invalid badge name. Available badges are: #{badgeList.join ', '}"
 
