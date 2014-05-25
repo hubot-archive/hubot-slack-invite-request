@@ -16,6 +16,18 @@
 
 apToLv = [0, 0, 10000, 30000, 70000, 150000, 300000, 600000, 1200000, 2400000,
           4000000, 6000000, 8400000, 12000000, 17000000, 24000000, 40000000]
+
+# Quick refrence for what badges are need at what level
+# LVL   Badges              AP          Max xm
+# 9   4 Silver, 1 Gold,     2400000,    10900
+# 10  5 Silver, 2 Gold,     4000000,    11700
+# 11  6 Silver, 4 Gold,     6000000,    12400
+# 12  7 Silver, 6 Gold,     8400000,    13000
+# 13  7 Gold, 1 Plat,       12000000,   13500
+# 14  2 Plat,               17000000,   13900
+# 15  3 Plat,               24000000,   14200
+# 16  4 Plat, 2 Black,      40000000,   14400
+
 badgeList = [
   'builder1', 'builder2', 'builder3', 'builder4', 'builder5',
   'connector1', 'connector2', 'connector3', 'connector4', 'connector5',
