@@ -62,6 +62,21 @@ describe 'ingress', ->
         expect(badges).to.be.a('array')
         expect(badges).to.include(':founder:')
 
+      it '"I have" automatically replaces badge of same type', ->
+        @msg.match = [0, 'I', 'hacker1']
+        @robot.respond.args[2][1](@msg)
+        badges = @data.ingressBadges.U123
+        expect(@msg.reply).to.have.been.calledWith('congrats on earning the :hacker1: badge!')
+        expect(badges).to.be.a('array')
+        expect(badges).to.include(':hacker1:')
+        @msg.match = [0, 'I', 'hacker2']
+        @robot.respond.args[2][1](@msg)
+        badges = @data.ingressBadges.U123
+        expect(@msg.reply).to.have.been.calledWith('congrats on earning the :hacker2: badge!')
+        expect(badges).to.be.a('array')
+        expect(badges).not.to.include(':hacker1:')
+        expect(badges).to.include(':hacker2:')
+
       it 'responds to "sinon2 has the verified badge"', ->
         @msg.match = [0, 'sinon2', 'verified']
         @robot.respond.args[2][1](@msg)
