@@ -14,9 +14,6 @@
 # Author:
 #   therealklanni
 
-apToLv = [0, 0, 10000, 30000, 70000, 150000, 300000, 600000, 1200000, 2400000,
-          4000000, 6000000, 8400000, 12000000, 17000000, 24000000, 40000000]
-
 # Quick refrence for what badges are need at what level
 # LVL   Badges              AP          Max xm
 # 9   4 Silver, 1 Gold,     2400000,    10900
@@ -27,6 +24,78 @@ apToLv = [0, 0, 10000, 30000, 70000, 150000, 300000, 600000, 1200000, 2400000,
 # 14  2 Plat,               17000000,   13900
 # 15  3 Plat,               24000000,   14200
 # 16  4 Plat, 2 Black,      40000000,   14400
+
+levels =
+  1:
+    ap: 0
+    xm: 3000
+  2:
+    ap: 10000
+    xm: 4000
+  3:
+    ap: 30000
+    xm: 5000
+  4:
+    ap: 70000
+    xm: 6000
+  5:
+    ap: 150000
+    xm: 7000
+  6:
+    ap: 300000
+    xm: 8000
+  7:
+    ap: 600000
+    xm: 9000
+  8:
+    ap: 1200000
+    xm: 10000
+  9:
+    ap: 2400000
+    xm: 10900
+    badges:
+      silver: 4
+      gold: 1
+  10:
+    ap: 4000000
+    xm: 11700
+    badges:
+      silver: 5
+      gold: 2
+  11:
+    ap: 6000000
+    xm: 12400
+    badges:
+      silver: 6
+      gold: 4
+  12:
+    ap: 8400000
+    xm: 13000
+    badges:
+      silver: 7
+      gold: 6
+  13:
+    ap: 12000000
+    xm: 13500
+    badges:
+      gold: 7
+      platinum: 1
+  14:
+    ap: 17000000
+    xm: 13900
+    badges:
+      platinum: 2
+  15:
+    ap: 24000000
+    xm: 14200
+    badges:
+      platinum: 3
+  16:
+    ap: 40000000
+    xm: 14400
+    badges:
+      platinum: 4
+      black: 2
 
 badgeList = [
   'builder1', 'builder2', 'builder3', 'builder4', 'builder5',
@@ -48,17 +117,33 @@ badgeList = [
 ]
 
 module.exports = (robot) ->
+  badges =
+    add: (user, badgeName) ->
+      userBadges = robot.brain.data.ingressBadges[user.id] ?= []
+      userBadges.push ":#{badgeName}:"
+    forUser: (user) ->
+      robot.brain.data.ingressBadges[user.id] ?= []
 
-  robot.brain.on "loaded", ->
-    badges = robot.brain.data.ingressBadges ?= {}
+  sayBadges = (a) ->
+    badgeReq = for kind, amt of a
+      Array(amt+1).join ":#{kind}:"
+
+  robot.brain.on 'loaded', ->
+    robot.brain.data.ingressBadges ?= {}
 
   robot.respond /AP\s+(?:to|(?:un)?til)\s+L?(\d{1,2})/i, (msg) ->
-    lv = msg.match[1]
-    ap = apToLv[lv]
-    msg.reply "You need #{ap} AP to reach L#{lv}" if ap
+    [lv, lvl] = [msg.match[1], levels[msg.match[1]]]
+    if lvl.badges?
+      badgeReq = sayBadges lvl.badges
+    msg.reply "You need #{lvl.ap} AP#{if badgeReq? then ' ' + badgeReq.join ' ' else ''}
+ to reach L#{lv}#{if lv > 15 then ' (hang in there!)' else ''}"
 
   robot.respond /AP all/i, (msg) ->
-    msg.send "L#{i+1} = #{ap} AP" for ap, i in apToLv.slice 1
+    lvls = for lv, lvl of levels
+      if lvl.badges?
+        badgeReq = sayBadges lvl.badges
+      "\nL#{lv} = #{lvl.ap} AP#{if badgeReq? then ' ' + badgeReq.join ' ' else ''}"
+    msg.send lvls.join ""
 
   robot.respond /(I|@?\w+) (?:have|has|got|earned)(?: the)? :?(\w+):? badge/i, (msg) ->
     who = msg.match[1].replace '@', ''
@@ -69,12 +154,10 @@ module.exports = (robot) ->
     else
       who = robot.brain.userForName who
 
-    userBadges = who.badges ?= []
-
     if badgeName in badgeList
-      userBadges.push ":#{badgeName}:"
+      badges.add who, badgeName
       if who.name == msg.envelope.user.name
-        msg.reply "Congrats on earning the :#{badgeName}: badge!"
+        msg.reply "congrats on earning the :#{badgeName}: badge!"
       else
         msg.send "@#{who.name}: congrats on earning the :#{badgeName}: badge!"
     else
@@ -88,7 +171,7 @@ module.exports = (robot) ->
     else
       who = robot.brain.userForName who
 
-    userBadges = who.badges ?= []
+    userBadges = badges.forUser who
     you = if who? and who.name == msg.envelope.user.name then true else false
     whowhat = "#{if you then 'You have' else who.name + ' has'}"
 
