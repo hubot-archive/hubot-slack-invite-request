@@ -121,6 +121,9 @@ module.exports = (robot) ->
     add: (user, badgeName) ->
       userBadges = robot.brain.data.ingressBadges[user.id] ?= []
       userBadges.push ":#{badgeName}:"
+    del: (user, badgeName) ->
+      robot.brain.data.ingressBadges[user.id] = (badges.forUser user).filter (x) ->
+        x isnt ":#{badgeName}:"
     forUser: (user) ->
       robot.brain.data.ingressBadges[user.id] ?= []
 
@@ -179,3 +182,16 @@ module.exports = (robot) ->
       msg.reply "#{whowhat} the following badges: #{userBadges.join ' '}"
     else
       msg.reply "#{whowhat} no badges."
+
+  robot.respond /(I|@?\w+) (?:do(?:n't|esn't| not)) have the :?(\w+):? badge/i, (msg) ->
+    who = msg.match[1].replace '@', ''
+    badgeName = msg.match[2]
+
+    if who.toLowerCase() == 'i'
+      who = msg.envelope.user
+    else
+      who = robot.brain.userForName who
+
+    if ":#{badgeName}:" in badges.forUser who
+      badges.del who, badgeName
+      msg.reply "removed the :#{badgeName}: badge"
