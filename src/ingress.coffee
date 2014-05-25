@@ -166,21 +166,22 @@ module.exports = (robot) ->
       if badgeName not in badgeList
         invalidNames.push badgeName
 
-    msg.reply "Invalid badge name(s): #{invalidNames.join ', '}." if invalidNames.length > 0
+    msg.reply "invalid badge name(s): #{invalidNames.join ', '}." if invalidNames.length > 0
     badgeNames = badgeNames.filter (x) -> x not in invalidNames
 
-    for badgeName in badgeNames
-      badges.add who, badgeName
+    if badgeNames.length > 0
+      for badgeName in badgeNames
+        badges.add who, badgeName
 
-    userBadges = badges.forUser who
-    badgeNames = badgeNames.filter (x) ->
-      ":#{x}:" in userBadges
+      userBadges = badges.forUser who
+      badgeNames = badgeNames.filter (x) ->
+        ":#{x}:" in userBadges
 
-    if who.name == msg.envelope.user.name
-      msg.reply "congrats on earning the :#{badgeNames.join ': :'}:
+      if who.name == msg.envelope.user.name
+        msg.reply "congrats on earning the :#{badgeNames.join ': :'}:
  badge#{if badgeNames.length > 1 then 's' else ''}!"
-    else
-      msg.send "@#{who.name}: congrats on earning the :#{badgeNames.join ': :'}:
+      else
+        msg.send "@#{who.name}: congrats on earning the :#{badgeNames.join ': :'}:
  badge#{if badgeNames.length > 1 then 's' else ''}!"
 
   robot.respond /wh(?:at|ich) badges? do(?:es)? (I|@?\w+) have/i, (msg) ->
