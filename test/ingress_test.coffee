@@ -46,7 +46,7 @@ describe 'ingress', ->
 
     describe 'badges commands', ->
       it 'registers "have badge" listener', ->
-        expect(@robot.respond).to.have.been.calledWith(/(I|@?\w+) (?:have|has|got|earned)(?: the)? :?(\w+):? badge/i)
+        expect(@robot.respond).to.have.been.calledWith(/(I|@?\w+) (?:have|has|got|earned)(?: the)? :?([\w,\s]+):? badges?/i)
 
       it 'registers "what badges" listener', ->
         expect(@robot.respond).to.have.been.calledWith(/wh(?:at|ich) badges? do(?:es)? (I|@?\w+) have/i)
@@ -76,6 +76,16 @@ describe 'ingress', ->
         expect(badges).to.be.a('array')
         expect(badges).not.to.include(':hacker1:')
         expect(badges).to.include(':hacker2:')
+
+      it '"I have" can handle multiple badge names', ->
+        @msg.match = [0, 'I', 'pioneer3, hacker4, builder1']
+        @robot.respond.args[2][1](@msg)
+        badges = @data.ingressBadges.U123
+        expect(@msg.reply).to.have.been.calledWith(sinon.match(/congrats on earning the .* badges!/))
+        expect(badges).to.be.a('array')
+        expect(badges).to.include(':pioneer3:')
+        expect(badges).to.include(':hacker4:')
+        expect(badges).to.include(':builder1:')
 
       it 'responds to "sinon2 has the verified badge"', ->
         @msg.match = [0, 'sinon2', 'verified']
