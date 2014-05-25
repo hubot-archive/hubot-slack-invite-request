@@ -62,6 +62,14 @@ describe 'ingress', ->
         expect(badges).to.be.a('array')
         expect(badges).to.include(':founder:')
 
+      it 'responds with error message on invalid badge name', ->
+        @msg.match = [0, 'I', 'random']
+        @robot.respond.args[2][1](@msg)
+        badges = @data.ingressBadges.U123
+        expect(@msg.reply).to.have.been.calledWith('invalid badge name(s): random.')
+        expect(badges).to.be.a('array')
+        expect(badges).not.to.include(':random:')
+
       it '"I have" automatically replaces badge of same type', ->
         @msg.match = [0, 'I', 'hacker1']
         @robot.respond.args[2][1](@msg)
