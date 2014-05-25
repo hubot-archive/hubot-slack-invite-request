@@ -37,7 +37,6 @@ describe 'ingress', ->
   require('../src/ingress')(robot)
 
   describe 'respond listener', ->
-    # it 'test', ->
 
     it 'registers AP per level listener', ->
       expect(@robot.respond).to.have.been.calledWith(/AP\s+(?:to|(?:un)?til)\s+L?(\d{1,2})/i)
@@ -48,6 +47,12 @@ describe 'ingress', ->
     describe 'badges commands', ->
       it 'registers "have badge" listener', ->
         expect(@robot.respond).to.have.been.calledWith(/(I|@?\w+) (?:have|has|got|earned)(?: the)? :?(\w+):? badge/i)
+
+      it 'registers "what badges" listener', ->
+        expect(@robot.respond).to.have.been.calledWith(/wh(?:at|ich) badges? do(?:es)? (I|@?\w+) have/i)
+
+      it 'registers "do not have" listener', ->
+        expect(@robot.respond).to.have.been.calledWith(/(I|@?\w+) (?:do(?:n't|esn't| not)) have the :?(\w+):? badge/i)
 
       it 'responds to "I have the founder badge"', ->
         @msg.match = [0, 'I', 'founder']
@@ -74,3 +79,10 @@ describe 'ingress', ->
         @msg.match = [0, 'sinon2']
         @robot.respond.args[3][1](@msg)
         expect(@msg.reply).to.have.been.calledWith(sinon.match(/sinon2 has (the following|no) badges.*/))
+
+      it 'responds to "I don\'t have the founder badge"', ->
+        @msg.match = [0, 'I', 'founder']
+        @robot.respond.args[4][1](@msg)
+        badges = @data.ingressBadges.U123
+        expect(@msg.reply).to.have.been.calledWith('removed the :founder: badge')
+        expect(badges).not.to.include(':founder:')
