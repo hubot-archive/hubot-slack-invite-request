@@ -1,42 +1,35 @@
 {
   "name": "hubot-ingress",
   "description": "Ingress commands for Hubot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Kevin Lanni",
     "email": "therealklanni@gmail.com",
     "url": "https://github.com/therealklanni"
   },
   "license": "MIT",
-
   "keywords": [
     "hubot",
     "hubot-scripts",
     "ingress"
   ],
-
   "repository": {
     "type": "git",
     "url": "git://github.com/therealklanni/hubot-ingress.git"
   },
-
   "bugs": {
     "url": "https://github.com/therealklanni/hubot-ingress/issues"
   },
-
   "dependencies": {
     "coffee-script": "~1.6"
   },
-
   "devDependencies": {
     "mocha": "*",
     "chai": "*",
     "sinon-chai": "*",
     "sinon": "*"
   },
-
   "main": "index.coffee",
-
   "scripts": {
     "test": "script/test"
   }
