@@ -118,12 +118,13 @@ badgeList = [
 
 module.exports = (robot) ->
   badges =
-    add: (user, badgeName) ->
-      toRemove = badgeList.filter (x) ->
-        (x.replace /\d+/, '') is (badgeName.replace /\d+/, '')
-      @del user, badge for badge in toRemove
-      userBadges = robot.brain.data.ingressBadges[user.id] ?= []
-      userBadges.push ":#{badgeName}:"
+    add: (user, badgeNames...) ->
+      for badgeName in badgeNames
+        toRemove = badgeList.filter (x) ->
+          (x.replace /\d+/, '') is (badgeName.replace /\d+/, '')
+        @del user, badge for badge in toRemove
+        userBadges = robot.brain.data.ingressBadges[user.id] ?= []
+        userBadges.push ":#{badgeName}:"
     del: (user, badgeName) ->
       robot.brain.data.ingressBadges[user.id] = (badges.forUser user).filter (x) ->
         x isnt ":#{badgeName}:"
@@ -151,23 +152,36 @@ module.exports = (robot) ->
       "\nL#{lv} = #{lvl.ap} AP#{if badgeReq? then ' ' + badgeReq.join ' ' else ''}"
     msg.send lvls.join ""
 
-  robot.respond /(I|@?\w+) (?:have|has|got|earned)(?: the)? :?(\w+):? badge/i, (msg) ->
+  robot.respond /(I|@?\w+) (?:have|has|got|earned)(?: the)? :?([\w,\s]+):? badges?/i, (msg) ->
     who = msg.match[1].replace '@', ''
-    badgeName = msg.match[2]
+    badgeNames = (msg.match[2].replace /\s*/g, '').split ','
 
     if who.toLowerCase() == 'i'
       who = msg.envelope.user
     else
       who = robot.brain.userForName who
 
-    if badgeName in badgeList
+    invalidNames = []
+    for badgeName in badgeNames
+      if badgeName not in badgeList
+        invalidNames.push badgeName
+
+    msg.reply "Invalid badge name(s): #{invalidNames.join ', '}." if invalidNames.length > 0
+    badgeNames = badgeNames.filter (x) -> x not in invalidNames
+
+    for badgeName in badgeNames
       badges.add who, badgeName
-      if who.name == msg.envelope.user.name
-        msg.reply "congrats on earning the :#{badgeName}: badge!"
-      else
-        msg.send "@#{who.name}: congrats on earning the :#{badgeName}: badge!"
+
+    userBadges = badges.forUser who
+    badgeNames = badgeNames.filter (x) ->
+      ":#{x}:" in userBadges
+
+    if who.name == msg.envelope.user.name
+      msg.reply "congrats on earning the :#{badgeNames.join ': :'}:
+ badge#{if badgeNames.length > 1 then 's' else ''}!"
     else
-      msg.reply "Invalid badge name. Available badges are: #{badgeList.join ', '}"
+      msg.send "@#{who.name}: congrats on earning the :#{badgeNames.join ': :'}:
+ badge#{if badgeNames.length > 1 then 's' else ''}!"
 
   robot.respond /wh(?:at|ich) badges? do(?:es)? (I|@?\w+) have/i, (msg) ->
     who = msg.match[1].replace '@', ''
