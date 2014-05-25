@@ -117,21 +117,26 @@ badgeList = [
 ]
 
 module.exports = (robot) ->
-  badges = {}
+  badges =
+    add: (user, badgeName) ->
+      userBadges = robot.brain.data.ingressBadges[user.id] ?= []
+      userBadges.push ":#{badgeName}:"
+    forUser: (user) ->
+      robot.brain.data.ingressBadges[user.id] ?= []
 
   sayBadges = (a) ->
     badgeReq = for kind, amt of a
       Array(amt+1).join ":#{kind}:"
 
-  robot.brain.on "loaded", ->
-    badges = robot.brain.data.ingressBadges ?= {}
+  robot.brain.on 'loaded', ->
+    robot.brain.data.ingressBadges ?= {}
 
   robot.respond /AP\s+(?:to|(?:un)?til)\s+L?(\d{1,2})/i, (msg) ->
     [lv, lvl] = [msg.match[1], levels[msg.match[1]]]
     if lvl.badges?
       badgeReq = sayBadges lvl.badges
     msg.reply "You need #{lvl.ap} AP#{if badgeReq? then ' ' + badgeReq.join ' ' else ''}
-        to reach L#{lv}#{if lv > 15 then ' (hang in there!)' else ''}"
+ to reach L#{lv}#{if lv > 15 then ' (hang in there!)' else ''}"
 
   robot.respond /AP all/i, (msg) ->
     lvls = for lv, lvl of levels
@@ -149,10 +154,8 @@ module.exports = (robot) ->
     else
       who = robot.brain.userForName who
 
-    userBadges = badges[who.id] ?= []
-
     if badgeName in badgeList
-      userBadges.push ":#{badgeName}:"
+      badges.add who, badgeName
       if who.name == msg.envelope.user.name
         msg.reply "congrats on earning the :#{badgeName}: badge!"
       else
@@ -168,7 +171,7 @@ module.exports = (robot) ->
     else
       who = robot.brain.userForName who
 
-    userBadges = badges[who.id] = []
+    userBadges = badges.forUser who
     you = if who? and who.name == msg.envelope.user.name then true else false
     whowhat = "#{if you then 'You have' else who.name + ' has'}"
 
