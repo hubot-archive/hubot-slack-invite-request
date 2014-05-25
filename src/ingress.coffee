@@ -119,6 +119,9 @@ badgeList = [
 module.exports = (robot) ->
   badges =
     add: (user, badgeName) ->
+      toRemove = badgeList.filter (x) ->
+        (x.replace /\d+/, '') is (badgeName.replace /\d+/, '')
+      @del user, badge for badge in toRemove
       userBadges = robot.brain.data.ingressBadges[user.id] ?= []
       userBadges.push ":#{badgeName}:"
     del: (user, badgeName) ->
