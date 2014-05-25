@@ -36,6 +36,7 @@ badgeList = [
 ]
 
 module.exports = (robot) ->
+  badges = {}
 
   robot.brain.on "loaded", ->
     badges = robot.brain.data.ingressBadges ?= {}
@@ -57,12 +58,12 @@ module.exports = (robot) ->
     else
       who = robot.brain.userForName who
 
-    userBadges = who.badges ?= []
+    userBadges = badges[who.id] ?= []
 
     if badgeName in badgeList
       userBadges.push ":#{badgeName}:"
       if who.name == msg.envelope.user.name
-        msg.reply "Congrats on earning the :#{badgeName}: badge!"
+        msg.reply "congrats on earning the :#{badgeName}: badge!"
       else
         msg.send "@#{who.name}: congrats on earning the :#{badgeName}: badge!"
     else
@@ -76,7 +77,7 @@ module.exports = (robot) ->
     else
       who = robot.brain.userForName who
 
-    userBadges = who.badges ?= []
+    userBadges = badges[who.id] = []
     you = if who? and who.name == msg.envelope.user.name then true else false
     whowhat = "#{if you then 'You have' else who.name + ' has'}"
 
