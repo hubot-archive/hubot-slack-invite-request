@@ -1,7 +1,7 @@
 {
   "name": "hubot-ingress",
   "description": "Ingress commands for Hubot",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": {
     "name": "Kevin Lanni",
     "email": "therealklanni@gmail.com",
