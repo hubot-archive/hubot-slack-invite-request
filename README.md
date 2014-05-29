@@ -16,6 +16,8 @@ specifically for use with the Slack adapter.
 
 `npm install hubot-ingress`
 
+Then add `"hubot-ingress"` to `external-scripts.json`
+
 Go to the custom emojis page of your Slack team. Upload each of the images from
 the `badges/` subfolder, naming them the same as their filename (without the extension).
 These emoji will be used by Hubot.
