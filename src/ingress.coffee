@@ -153,10 +153,10 @@ module.exports = (robot) ->
     msg.send lvls.join ""
 
   robot.respond /(I|@?\w+) (?:have|has|got|earned)(?: the)? :?([\w,\s]+):? badges?/i, (msg) ->
-    who = msg.match[1].replace '@', ''
-    badgeNames = (msg.match[2].replace /\s*/g, '').split ','
+    who = msg.match[1].toLowerCase().replace '@', ''
+    badgeNames = (msg.match[2].toLowerCase().replace /\s*/g, '').split ','
 
-    if who.toLowerCase() == 'i'
+    if who == 'i'
       who = msg.envelope.user
     else
       who = robot.brain.userForName who
@@ -202,10 +202,10 @@ module.exports = (robot) ->
       msg.reply "#{whowhat} no badges."
 
   robot.respond /(I|@?\w+) (?:do(?:n't|esn't| not)) have the :?(\w+):? badge/i, (msg) ->
-    who = msg.match[1].replace '@', ''
-    badgeName = msg.match[2]
+    who = msg.match[1].toLowerCase().replace '@', ''
+    badgeName = msg.match[2].toLowerCase()
 
-    if who.toLowerCase() == 'i'
+    if who == 'i'
       who = msg.envelope.user
     else
       who = robot.brain.userForName who
