@@ -121,6 +121,8 @@ badgeList = [
 ]
 
 module.exports = (robot) ->
+  require('./join-request')(robot);
+
   badges =
     add: (user, badgeNames...) ->
       for badgeName in badgeNames
