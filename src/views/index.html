@@ -11,28 +11,28 @@
       <label for="fullName" class="full-name">
         <div class="title">Full name <span class="required">*</span></div>
       </label>
-      <input type="text" id="fullName" name="fullName">
+      <input type="text" id="fullName" name="fullName" value="{{fullName}}" readonly>
 
       <label for="" class="email">
         <div class="title">Email address <span class="required">*</span></div>
       </label>
-      <input type="text" id="email" name="email">
+      <input type="text" id="email" name="email" value="{{email}}" readonly>
 
       <label for="agentName" class="agent-name">
         <div class="title">Ingress agent name <span class="required">*</span></div>
         <div class="help">If you are not an active player or belong to the wrong faction, your request will be denied.</div>
       </label>
-      <input type="text" id="agentName" name="agentName">
+      <input type="text" id="agentName" name="agentName" value="{{nickname}}" required autofocus>
 
       <label for="community" class="community">
         <div class="title">Community name (optional)</div>
-        <div class="help">To help speed up the verification process, you may provide the name(s) of any communties you are a member of.</div>
+        <div class="help">To help speed up the verification process, you may provide the name(s) of any communities you are a member of.</div>
       </label>
       <input type="text" id="community" name="community">
 
       <label for="comments" class="comments">
         <div class="title">Comments</div>
-        <div class="help">Any additional information to help expedite your request.</div>
+        <div class="help">Any additional information you would like to provide to help expedite your request.</div>
       </label>
       <textarea id="comments" name="comments" rows="8"></textarea>
 
@@ -40,7 +40,7 @@
         <div class="title">Select a screenshot of your faction COMM in the Ingress app <span class="required">*</span></div>
         <div class="help">You must submit a recent screenshot that clearly shows your agent name and the open faction chat or your agent profile.</div>
       </label>
-      <input type="file" class="screenshot" accept="image/*" id="screenshot" name="screenshot">
+      <input type="file" class="screenshot" accept="image/*" id="screenshot" name="screenshot" required>
 
       <div><input type="submit" value="Submit"></div>
     </form>

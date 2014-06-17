@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sign in to continue</title>
+  </head>
+  <body>
+    <h1>{{team}}</h1>
+    <h3>Thank you for your interest in joining!</h3>
+    <p>For security, please sign in with Google+ below to continue...</p>
+    <div id="signinButton">
+      <span class="g-signin"
+        data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
+        data-clientid="960639325101-1jg1eqih3h29rfhvg1m3k73kh944d1dp.apps.googleusercontent.com"
+        data-redirecturi="/login"
+        data-accesstype="offline"
+        data-cookiepolicy="single_host_origin"
+        data-callback="signInCallback">
+      </span>
+    </div>
+    <p>Your public profile information and public G+ activity will be used to verify your identity.</p>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript">
+      (function () {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://plus.google.com/js/client:plusone.js?onload=start';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+      }());
+    </script>
+    <script type="text/javascript">
+      function signInCallback(authResult) {
+        if (authResult.code) {
+          $.ajax({
+            url: 'https://www.googleapis.com/plus/v1/people/me',
+            beforeSend: function (xhr) { xhr.setRequestHeader('Authorization','Bearer ' + authResult.access_token); }
+          }).done(function (user) {
+            console.log(JSON.stringify(user))
+            $.post('/login', { code: authResult.code, user: user })
+            .done(function (data) {
+              window.location.replace('/apply');
+            });
+          });
+        } else if (authResult.error) {
+          console.error('Google+ Signin: ' + authResult.error);
+        }
+      }
+    </script>
+  </body>
+</html>
