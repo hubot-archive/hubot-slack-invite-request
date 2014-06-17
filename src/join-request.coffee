@@ -45,7 +45,7 @@ module.exports = (robot) ->
       nickname: user.nickname
       email: user.emails[0].value
 
-    res.render 'index', viewData
+    res.render 'apply', viewData
 
   app.post '/apply', validate, (req, res) ->
     viewData =
