@@ -36,7 +36,6 @@
             url: 'https://www.googleapis.com/plus/v1/people/me',
             beforeSend: function (xhr) { xhr.setRequestHeader('Authorization','Bearer ' + authResult.access_token); }
           }).done(function (user) {
-            console.log(JSON.stringify(user))
             $.post('/login', { code: authResult.code, user: user })
             .done(function (data) {
               window.location.replace('/apply');
