@@ -48,12 +48,17 @@ module.exports = (robot) ->
     res.render 'apply', viewData
 
   app.post '/apply', validate, (req, res) ->
-    viewData =
-      team: team
-      fullName: req.body.fullName
-      email: req.body.email
+    user = req.session.user
+    fileTemp = req.files.screenshot.path
+    filename = "images/#{fileTemp.split('/').pop()}"
 
-    res.render 'thanks', viewData
+    fs.rename fileTemp, "#{__dirname}/public/#{filename}", (err) ->
+      if err?
+        res.send 500
+      viewData =
+        team: team
+        fullName: user.displayName
+        email: user.emails[0].value
+        imagePath: filename
 
-    # clean up temporary file
-    fs.unlink req.files.screenshot.path
+      res.render 'thanks', viewData
