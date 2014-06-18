@@ -2,47 +2,50 @@
 <html lang="en">
   <head>
     <title>Apply for access to {{team}}</title>
+    <link rel="stylesheet" href="styles/main.css">
   </head>
   <body>
-    <h1>{{title}}</h1>
-    <p class="description">{{description}}</p>
-    <div class="required">* Required</div>
-    <form method="post" action="/apply" enctype="multipart/form-data" id="application">
-      <label for="fullName" class="full-name">
-        <div class="title">Full name <span class="required">*</span></div>
-      </label>
-      <input type="text" id="fullName" name="fullName" value="{{fullName}}" readonly>
+    <div class="main-container">
+      <h1>{{title}}</h1>
+      <p class="description">{{description}}</p>
+      <div class="required">* Required</div>
+      <form method="post" action="/apply" enctype="multipart/form-data" id="application">
+        <label for="fullName" class="full-name">
+          <div class="title">Full name <span class="required">*</span></div>
+        </label>
+        <input type="text" id="fullName" name="fullName" value="{{fullName}}" readonly>
 
-      <label for="" class="email">
-        <div class="title">Email address <span class="required">*</span></div>
-      </label>
-      <input type="text" id="email" name="email" value="{{email}}" readonly>
+        <label for="" class="email">
+          <div class="title">Email address <span class="required">*</span></div>
+        </label>
+        <input type="text" id="email" name="email" value="{{email}}" readonly>
 
-      <label for="agentName" class="agent-name">
-        <div class="title">Ingress agent name <span class="required">*</span></div>
-        <div class="help">If you belong to the wrong faction, your request will be denied.</div>
-      </label>
-      <input type="text" id="agentName" name="agentName" value="{{nickname}}" required autofocus>
+        <label for="agentName" class="agent-name">
+          <div class="title">Ingress agent name <span class="required">*</span></div>
+          <div class="help">If you belong to the wrong faction, your request will be denied.</div>
+        </label>
+        <input type="text" id="agentName" name="agentName" value="{{nickname}}" required autofocus>
 
-      <label for="community" class="community">
-        <div class="title">Community name (optional)</div>
-        <div class="help">To help speed up the verification process, you may provide the name(s) of any communities you are a member of.</div>
-      </label>
-      <input type="text" id="community" name="community">
+        <label for="community" class="community">
+          <div class="title">Community name (optional)</div>
+          <div class="help">To help speed up the verification process, you may provide the name(s) of any communities you are a member of.</div>
+        </label>
+        <input type="text" id="community" name="community">
 
-      <label for="comments" class="comments">
-        <div class="title">Comments</div>
-        <div class="help">Any additional information you would like to provide to help expedite your request.</div>
-      </label>
-      <textarea id="comments" name="comments" rows="8"></textarea>
+        <label for="comments" class="comments">
+          <div class="title">Comments</div>
+          <div class="help">Any additional information you would like to provide to help expedite your request.</div>
+        </label>
+        <textarea id="comments" name="comments" rows="4"></textarea>
 
-      <label for="screenshot" class="screenshot">
-        <div class="title">Upload a screenshot of Ingress showing your player account</div>
-        <div class="help">It's <b>highly recommended</b> to submit a recent screenshot that clearly shows your agent name and the open faction chat or your agent profile. This will greatly increase your chances of approval. Screenshots of the <i>intel page, IITC, or other unofficial app will not be accepted</i>—you must capture a screenshot from the <i>official Android app</i>.</div>
-      </label>
-      <input type="file" class="screenshot" accept="image/*" id="screenshot" name="screenshot">
+        <label for="screenshot" class="screenshot">
+          <div class="title">Upload a screenshot of Ingress showing your player account</div>
+          <div class="help">It's <b>highly recommended</b> to submit a recent screenshot that clearly shows your agent name and the open faction chat or your agent profile. This will greatly increase your chances of approval. Screenshots of the <i>intel page, IITC, or other unofficial app will not be accepted</i>—you must capture a screenshot from the <i>official Android app</i>.</div>
+        </label>
+        <input type="file" class="screenshot" accept="image/*" id="screenshot" name="screenshot">
 
-      <div><input type="submit" value="Submit"></div>
-    </form>
+        <div class="submit"><input type="submit"></div>
+      </form>
+    </div>
   </body>
 </html>

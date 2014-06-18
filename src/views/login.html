@@ -2,22 +2,25 @@
 <html lang="en">
   <head>
     <title>Sign in to continue</title>
+    <link rel="stylesheet" href="styles/main.css">
   </head>
   <body>
-    <h1>{{team}}</h1>
-    <h3>Thank you for your interest in joining!</h3>
-    <p>For security, please sign in with Google+ below to continue...</p>
-    <div id="signinButton">
-      <span class="g-signin"
-        data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
-        data-clientid="960639325101-1jg1eqih3h29rfhvg1m3k73kh944d1dp.apps.googleusercontent.com"
-        data-redirecturi="/login"
-        data-accesstype="offline"
-        data-cookiepolicy="single_host_origin"
-        data-callback="signInCallback">
-      </span>
+    <div class="main-container">
+      <h1>{{team}}</h1>
+      <h3>Thanks for your interest in joining!</h3>
+      <p>For security reasons, we request that you sign in with Google+ to continue...</p>
+      <div class="signin" id="signinButton">
+        <span class="g-signin"
+          data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
+          data-clientid="960639325101-1jg1eqih3h29rfhvg1m3k73kh944d1dp.apps.googleusercontent.com"
+          data-redirecturi="/login"
+          data-accesstype="offline"
+          data-cookiepolicy="single_host_origin"
+          data-callback="signInCallback">
+        </span>
+      </div>
+      <p class="subtext">Your public profile information and public G+ activity will be used to verify your identity.</p>
     </div>
-    <p>Your public profile information and public G+ activity will be used to verify your identity.</p>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript">
       (function () {
