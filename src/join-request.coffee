@@ -69,7 +69,7 @@ module.exports = (robot) ->
       res.render 'thanks', viewData
 
       user.agentName = req.body.agentName.slice 0, 32
-      user.community = req.body.comments.slice 0, 140
+      user.community = req.body.community.slice 0, 140
       user.comments = req.body.comments.slice 0, 140
 
       robot.brain.data.ingressAgents.push user
