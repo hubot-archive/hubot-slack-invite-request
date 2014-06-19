@@ -54,7 +54,7 @@ module.exports = (robot) ->
   app.post '/apply', validate, (req, res) ->
     user = req.session.user
     fileTemp = req.files.screenshot.path
-    filename = "images/#{fileTemp.split('/').pop()}" + req.files.screenshot.name.split('.').pop()
+    filename = "images/#{fileTemp.split('/').pop()}." + req.files.screenshot.name.split('.').pop()
     imageUrl = env.HUBOT_BASE_URL.replace /\/$/, "/#{filename}"
 
     fs.rename fileTemp, "#{__dirname}/public/#{filename}", (err) ->
