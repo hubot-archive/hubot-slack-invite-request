@@ -10,7 +10,8 @@ validate = (req, res, next) ->
 
 module.exports = (robot) ->
   app = robot.router
-  team = process.env.HUBOT_SLACK_TEAM or ''
+  env = process.env
+  team = env.HUBOT_SLACK_TEAM or ''
 
   app.engine 'html', cons.hogan
   app.set 'view engine', 'html'
@@ -33,8 +34,8 @@ module.exports = (robot) ->
     user = req.session.user
     viewData =
       team: team
-      title: process.env.HUBOT_INGRESS_INVITE_TITLE or "You're almost there!"
-      description: process.env.HUBOT_INGRESS_INVITE_DESC or 'Please fill out
+      title: env.HUBOT_INGRESS_INVITE_TITLE or "You're almost there!"
+      description: env.HUBOT_INGRESS_INVITE_DESC or 'Please fill out
  the form below and upload your verification screenshot to complete your
  application. We have attempted to determine your agent name automatically,
  please check that this information is correct. Your application will be
