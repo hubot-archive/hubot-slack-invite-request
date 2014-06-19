@@ -81,7 +81,7 @@ module.exports = (robot) ->
         content:
           fallback: "New invite request from #{user.displayName}"
           pretext: "#{user.displayName} would like to join Slack!"
-          text: "#{imageUrl}" if req.files.screenshot.name
+          text: if req.files.screenshot.name then "#{imageUrl}" else '<no screenshot>'
           fields: [
             {title: 'Full Name'
             value: user.displayName
