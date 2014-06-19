@@ -72,6 +72,8 @@ module.exports = (robot) ->
       user.community = req.body.community.slice 0, 140
       user.comments = req.body.comments.slice 0, 140
 
+      robot.brain.data.ingressAgents = robot.brain.data.ingressAgents.filter (agent) ->
+        agent.emails[0].value != user.emails[0].value
       robot.brain.data.ingressAgents.push user
       robot.brain.save()
 
