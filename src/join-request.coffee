@@ -55,6 +55,7 @@ module.exports = (robot) ->
     user = req.session.user
     fileTemp = req.files.screenshot.path
     filename = "images/#{fileTemp.split('/').pop()}" + req.files.screenshot.name.split('.').pop()
+    imageUrl = env.HUBOT_BASE_URL.replace /\/$/, "/#{filename}"
 
     fs.rename fileTemp, "#{__dirname}/public/#{filename}", (err) ->
       if err?
@@ -73,3 +74,30 @@ module.exports = (robot) ->
 
       robot.brain.data.ingressAgents.push user
       robot.brain.save()
+
+      payload =
+        message:
+          reply_to: env.HUBOT_SLACK_ADMIN_CHANNEL or 'invites'
+        content:
+          fallback: "New invite request from #{user.displayName}"
+          pretext: "#{user.displayName} would like to join Slack!"
+          text: "#{imageUrl}" if req.files.screenshot.name?
+          fields: [
+            {title: 'Full Name'
+            value: user.displayName
+            short: true},
+            {title: 'Email'
+            value: user.emails[0].value
+            short: true},
+            {title: 'Agent Name'
+            value: user.agentName
+            short: true},
+            {title: 'Community'
+            value: user.community or '<none>'
+            short: true},
+            {title: 'Comments'
+            value: user.comments or '<none>'
+            short: false}
+          ]
+
+      robot.emit 'slack-attachment', payload
