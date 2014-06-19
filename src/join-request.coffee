@@ -13,6 +13,9 @@ module.exports = (robot) ->
   env = process.env
   team = env.HUBOT_SLACK_TEAM or ''
 
+  robot.brain.on 'loaded', ->
+    robot.brain.data.ingressAgents ?= []
+
   app.engine 'html', cons.hogan
   app.set 'view engine', 'html'
   app.set 'views', "#{__dirname}/views"
@@ -63,3 +66,10 @@ module.exports = (robot) ->
         imagePath: filename
 
       res.render 'thanks', viewData
+
+      user.agentName = req.body.agentName.slice 0, 32
+      user.community = req.body.comments.slice 0, 140
+      user.comments = req.body.comments.slice 0, 140
+
+      robot.brain.data.ingressAgents.push user
+      robot.brain.save()
