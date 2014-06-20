@@ -83,7 +83,7 @@ module.exports = (robot) ->
           reply_to: env.HUBOT_SLACK_ADMIN_CHANNEL or 'invites'
         content:
           fallback: "New invite request from #{user.displayName}"
-          pretext: "#{user.displayName} would like to join Slack!"
+          pretext: "<#{user.url}|#{user.displayName}> would like to join Slack!"
           text: if req.files.screenshot.name then "#{imageUrl}" else '<no screenshot>'
           fields: [
             {title: 'Full Name'
