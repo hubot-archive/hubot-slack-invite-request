@@ -40,7 +40,12 @@ body {
 }
 
 .example {
+  margin-top: 30px;
+  border-top: 2px #ddd solid;
+}
 
+.example > p {
+  font-size: 80%;
 }
 
 .sample-screenshot {
