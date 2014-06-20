@@ -12,6 +12,7 @@ module.exports = (robot) ->
   app = robot.router
   env = process.env
   team = env.HUBOT_SLACK_TEAM or ''
+  url = env.HUBOT_BASE_URL or 'http://please-set-HUBOT_BASE_URL/'
 
   robot.brain.on 'loaded', ->
     robot.brain.data.ingressAgents ?= []
@@ -55,7 +56,7 @@ module.exports = (robot) ->
     user = req.session.user
     fileTemp = req.files.screenshot.path
     filename = "images/#{fileTemp.split('/').pop()}." + req.files.screenshot.name.split('.').pop()
-    imageUrl = env.HUBOT_BASE_URL.replace /\/$/, "/#{filename}"
+    imageUrl = url.replace /\/$/, "/#{filename}"
 
     fs.rename fileTemp, "#{__dirname}/public/#{filename}", (err) ->
       if err?
