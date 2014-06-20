@@ -44,13 +44,6 @@ module.exports = (robot) ->
     user = req.session.user
     viewData =
       team: team
-      title: env.HUBOT_INGRESS_INVITE_TITLE or "You're almost there!"
-      description: env.HUBOT_INGRESS_INVITE_DESC or 'Please fill out
- the form below and upload your verification screenshot to complete your
- application. We have attempted to determine your agent name automatically,
- please check that this information is correct. Your application will be
- reviewed as quickly as possible and your invitation will be sent to the email
- address below if you are approved.'
       fullName: user.displayName
       givenName: user.name.givenName
       nickname: user.nickname
