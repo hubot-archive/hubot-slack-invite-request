@@ -39,6 +39,18 @@ body {
   text-align: right;
 }
 
+.example {
+
+}
+
+.sample-screenshot {
+  width: 340px;
+  height: 628px;
+  background-image: url(../images/submit.jpg);
+  background-size: 340px 628px;
+  background-repeat: no-repeat;
+}
+
 .subtext {
   font-size: 50%;
 }
