@@ -8,6 +8,12 @@ validate = (req, res, next) ->
     req.session.error = 'Not Authenticated'
     res.redirect '/login'
 
+rateLimit = (req, res, next) ->
+  if not req.session.time? or Date.now() - req.session.time > 3600000
+    next()
+  else
+    res.send 429, "Woah, #{req.session.user.name.givenName}, got a little over-excited there, did ya?"
+
 module.exports = (robot) ->
   app = robot.router
   env = process.env
@@ -52,7 +58,8 @@ module.exports = (robot) ->
 
     res.render 'apply', viewData
 
-  app.post '/apply', validate, (req, res) ->
+  app.post '/apply', rateLimit, validate, (req, res) ->
+    req.session.time = Date.now()
     user = req.session.user
     fileTemp = req.files.screenshot.path
     filename = "images/#{fileTemp.split('/').pop()}." + req.files.screenshot.name.split('.').pop()
