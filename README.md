@@ -4,6 +4,7 @@ Serves a page from your Hubot . This script is designed
 specifically for use with the Slack adapter.
 
 [![Build Status](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request.svg)](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request)
+[![Gitter chat](https://badges.gitter.im/hubot-scripts/hubot-slack-invite-request.png)](https://gitter.im/hubot-scripts/hubot-slack-invite-request)
 
 ## Installation
 
