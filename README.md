@@ -1,7 +1,10 @@
 # Slack join request page for Hubot
 
-Serves a page from your Hubot . This script is designed
-specifically for use with the Slack adapter.
+Serves a page from your Hubot which authenticates users via Google Sign In and 
+then displays a form for requesting an invite to a [Slack](http://slack.com) team.
+When the form is submitted, the details are posted to your channel/group on Slack.
+
+> This script is designed specifically for use with the Slack adapter.
 
 [![Build Status](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request.svg)](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request)
 [![Gitter chat](https://badges.gitter.im/hubot-scripts/hubot-slack-invite-request.png)](https://gitter.im/hubot-scripts/hubot-slack-invite-request)
