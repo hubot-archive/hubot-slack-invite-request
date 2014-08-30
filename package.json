@@ -1,7 +1,7 @@
 {
-  "name": "hubot-ingress",
+  "name": "hubot-slack-invite-request",
   "description": "Ingress commands for Hubot",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "author": {
     "name": "Kevin Lanni",
     "email": "therealklanni@gmail.com",
@@ -11,14 +11,14 @@
   "keywords": [
     "hubot",
     "hubot-scripts",
-    "ingress"
+    "slack"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/therealklanni/hubot-ingress.git"
+    "url": "git://github.com/hubot-scripts/hubot-slack-invite-request.git"
   },
   "bugs": {
-    "url": "https://github.com/therealklanni/hubot-ingress/issues"
+    "url": "https://github.com/hubot-scripts/hubot-slack-invite-request/issues"
   },
   "dependencies": {
     "coffee-script": "~1.6",
