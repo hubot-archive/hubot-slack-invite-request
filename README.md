@@ -1,6 +1,6 @@
-# Slack join request page for Hubot
+# Slack invitation request page for Hubot
 
-Serves a page from your Hubot which authenticates users via Google Sign In and 
+Serves a page from your Hubot which authenticates users via Google Sign-In and 
 then displays a form for requesting an invite to a [Slack](http://slack.com) team.
 When the form is submitted, the details are posted to your channel/group on Slack.
 
