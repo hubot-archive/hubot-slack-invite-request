@@ -14,71 +14,73 @@ apply:
     required: "Required"
 
   form:
-    # Each input field described below will be displayed on the form
-    # Add as many as you like
-    -
-      # name of this field
+    fullName:
       name: "fullName"
-      # css class name for styling
       class: "full-name"
-      # title shown to user
       title: "Full name"
-      # help text shown below title
-      help: 
-      # required fields must be filled in to submit the form
       required: true
-      # readonly fields are not editable
       readonly: true
 
-    -
+    email:
       name: "email"
       class: "email"
       title: "Email address"
-      help: 
       required: true
       readonly: true
 
-    -
-      name: "agentName"
-      class: "agent-name"
-      title: "Ingress agent name"
-      help: "Let us know your agent name — correct it if necessary."
-      required: true
-      readonly: false
+    custom:
+      # Each custom input field described below will be displayed on the form
+      # Add as many as you like
+      -
+        # name of this field
+        name: "username"
+        # css class name for styling
+        class: "agent-name"
+        # title shown to user
+        title: "Ingress agent name"
+        # help text shown to user below title text
+        help: "Let us know your agent name for verification"
+        # required fields must be filled in to submit the form
+        required: true
+        # readonly fields are not editable
+        readonly: false
 
-    -
-      name: "community"
-      class: "community"
-      title: "Community name"
-      help: 
-        "To help speed up the verification process, you may provide
-        the name(s) of any communities you are a member of."
-      required: false
-      readonly: false
+      -
+        name: "community"
+        class: "community"
+        title: "Community name"
+        help: 
+          "To help speed up the verification process, you may provide
+          the name(s) of any communities you are a member of."
+        required: false
+        readonly: false
 
-    -
-      name: "comments"
-      class: "comments"
-      title: "Comments"
-      help: 
-        "Any additional information you would like to provide
-        to help expedite your request."
-      required: false
-      readonly: false
+      -
+        name: "comments"
+        class: "comments"
+        title: "Comments"
+        help: 
+          "Any additional information you would like to provide
+          to help expedite your request."
+        required: false
+        readonly: false
+        # if this property is defined, the input will use the defined html
+        html: <textarea id="comments" name="comments" rows="4"></textarea>
 
-    -
-      name: "screenshot"
-      class: "screenshot"
-      title: "Upload a screenshot of Ingress showing your player account"
-      help:
-        "It's <b>highly recommended</b> to submit a recent screenshot
-        that clearly shows your agent name and the open faction chat or
-        your agent profile. This will greatly increase your chances of
-        approval. Screenshots of the <i>intel page, IITC, or other
-        unofficial app will not be accepted</i>—you must capture a
-        screenshot from the <i>official Android app</i>."
-      required: true
-      readonly: false
+      -
+        name: "screenshot"
+        class: "screenshot"
+        title: "Upload a screenshot of Ingress showing your player account"
+        help:
+          "It's <b>highly recommended</b> to submit a recent screenshot
+          that clearly shows your agent name and the open faction chat or
+          your agent profile. This will greatly increase your chances of
+          approval. Screenshots of the <i>intel page, IITC, or other
+          unofficial app will not be accepted</i>—you must capture a
+          screenshot from the <i>official Android app</i>."
+        required: false
+        readonly: false
+        html: <input type="file" class="screenshot" accept="image/*" id="screenshot" name="screenshot">
 thanks:
   blurb: "Thank you"
   detail: 
