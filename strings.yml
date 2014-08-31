@@ -8,10 +8,8 @@ apply:
     blurb: "You're almost there!"
     description: 
       "Please fill out the form below and upload your verification
-      screenshot to complete your application. We have attempted
-      to determine your agent name automatically, please check
-      that this information is correct. Your application will be
-      reviewed as quickly as possible and your invitation will be
+      screenshot to complete your application. Your application will
+      be reviewed as quickly as possible and your invitation will be
       sent to the email address below if you are approved."
     required: "Required"
 
