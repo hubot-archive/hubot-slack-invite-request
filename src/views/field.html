@@ -1,0 +1,14 @@
+<label for="{{name}}" class="{{class}}">
+  <div class="title">{{{title}}}{{#required}} <span class="required">*</span>{{/required}}</div>
+  {{#help}}<div class="help">{{{help}}}</div>{{/help}}
+</label>
+{{{html}}}
+{{^html}}
+<input
+  type="text"
+  id="{{name}}"
+  name="{{name}}"
+  value="{{value}}"
+  {{#required}}required{{/required}}
+  {{#readonly}}readonly{{/readonly}}>
+{{/html}}
