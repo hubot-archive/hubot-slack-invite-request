@@ -1,5 +1,11 @@
 fs = require 'fs'
 cons = require 'consolidate'
+yaml = require 'js-yaml'
+path = require 'path'
+strings = yaml.safeLoad fs.readFileSync path.resolve "#{__dirname}/../strings.yml"
+loginTpl = strings.login
+applyTpl = strings.apply
+thanksTpl = strings.thanks
 
 validate = (req, res, next) ->
   if req.session.user?
@@ -42,12 +48,16 @@ module.exports = (robot) ->
 
   app.get '/apply', validate, (req, res) ->
     user = req.session.user
+
+    applyTpl.form.fullName.value = user.displayName
+    applyTpl.form.email.value = user.emails[0].value
+
     viewData =
+      partials:
+        field: 'field'
       team: team
-      fullName: user.displayName
-      givenName: user.name.givenName
-      nickname: user.nickname
-      email: user.emails[0].value
+      user: user
+      apply: applyTpl
 
     res.render 'apply', viewData
 
