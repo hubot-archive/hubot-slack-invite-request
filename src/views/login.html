@@ -8,9 +8,9 @@
   </head>
   <body>
     <div class="main-container">
-      <h1>{{team}}</h1>
-      <h3>Thanks for your interest in joining!</h3>
-      <p>For security reasons, we request that you sign in with Google+ to continue...</p>
+      <h1 class="login-title">{{team}}</h1>
+      <h3 class="login-blurb">{{blurb}}</h3>
+      <p class="login-detail">{{detail}}</p>
       <div class="signin" id="signinButton">
         <span class="g-signin"
           data-scope="profile https://www.googleapis.com/auth/plus.profile.emails.read"
@@ -21,8 +21,9 @@
           data-callback="signInCallback">
         </span>
       </div>
-      <p class="subtext">Your public profile information and public G+ activity will be used to verify your identity.</p>
+      <p class="login-subtext">{{subtext}}</p>
     </div>
+
     <script src="scripts/jquery.js"></script>
     <script type="text/javascript">
       (function () {
