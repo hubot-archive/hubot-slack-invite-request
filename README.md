@@ -3,11 +3,17 @@
 [![Build Status](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request.svg)](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request)
 [![Gitter chat](https://badges.gitter.im/hubot-scripts/hubot-slack-invite-request.png)](https://gitter.im/hubot-scripts/hubot-slack-invite-request)
 
-Serves a page from your Hubot which authenticates users via Google Sign-In and 
+> This script is designed specifically for use with the [Slack adapter](https://github.com/tinyspeck/hubot-slack).
+
+Serves pages from your Hubot which authenticates users via Google Sign-In and 
 then displays a form for requesting an invite to a [Slack](http://slack.com) team.
 When the form is submitted, the details are posted to your channel/group on Slack.
 
-> This script is designed specifically for use with the [Slack adapter](https://github.com/tinyspeck/hubot-slack).
+The user will see each page in the following order:
+
+1. login
+2. apply
+3. thanks
 
 ## Installation
 
@@ -17,25 +23,56 @@ Then add `"hubot-slack-invite-request"` to `external-scripts.json`
 
 ## Configuration
 
-Start by modifying the `strings.yml` file to set up the application form, "thank you" page, and "login" page.
+### Environment variables
+
+* `HUBOT_SLACK_TEAM` - your team name
+* `HUBOT_SLACK_ADMIN_CHANNEL` - the destination for the request notifications from Hubot; this can be a public channel or private group.
+* `HUBOT_BASE_URL` - the base URL for where your hubot lives (e.g. http://myhubot.com/), *please include the trailing slash*
+
+These should be configured in your hubot initialization script. Or, for example,
+on Heroku you would run:
+
+```sh
+heroku config:set ENV_VARIABLE=value
+```
+
+### Strings
+
+You can customize each page by modifying the `strings.yml` file.
 
 The `strings.yml` file is set up as follows:
 
 ```yml
 apply:
   # ... strings for application page ...
+  header:
+    # ... strings for the page header ...
+  form:
+    # ... form field configuration ...
 thanks:
   # ... strings for thank you page ...
 login:
   # ... strings for login page ...
 ```
 
-The user will see each page in the following order:
+In the `form` section of `apply`, the `fullName` and `email` blocks should be
+considered necessary for proper functionality of the script. However, you can
+still customize these fields by editing these (and only these) properties: 
 
-1. login (unless user is already logged in)
-2. apply
-3. thanks
+* `class`
+* `title`
+* `required`
+* `readonly`
+* `help` (not provided by default).
 
+In the `custom` section of `form`, you can modify *any* of the values as you see
+fit, or add/remove blocks, or even remove the `custom` section entirely, if
+you like.
+
+The default configuration should sufficiently provide varying examples of custom
+field configurations. More advanced users can also modify the view templates 
+themselves for even higher degree of customization. If you choose to do this,
+please note that the `fullName` and `email` should still be considered necessary.
 
 ## Commands
 
