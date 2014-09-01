@@ -77,7 +77,7 @@ apply:
           your agent profile. This will greatly increase your chances of
           approval. Screenshots of the <i>intel page, IITC, or other
           unofficial app will not be accepted</i>—you must capture a
-          screenshot from the <i>official Android app</i>."
+          screenshot from the <i>official Android or iOS app</i>."
         required: false
         readonly: false
         html: <input type="file" class="screenshot" accept="image/*" id="screenshot" name="screenshot">
