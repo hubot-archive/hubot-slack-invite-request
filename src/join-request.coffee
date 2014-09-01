@@ -25,6 +25,7 @@ module.exports = (robot) ->
   env = process.env
   team = env.HUBOT_SLACK_TEAM or ''
   url = env.HUBOT_BASE_URL or 'http://please-set-HUBOT_BASE_URL/'
+  loginTpl.team = team
 
   robot.brain.on 'loaded', ->
     robot.brain.data.ingressAgents ?= []
@@ -44,13 +45,13 @@ module.exports = (robot) ->
     if req.session.user?
       res.redirect '/apply'
     else
-      res.render 'login'
+      res.render 'login', loginTpl
 
   app.get '/apply', validate, (req, res) ->
     user = req.session.user
 
-    applyTpl.form.fullName.value = user.displayName
-    applyTpl.form.email.value = user.emails[0].value
+    applyTpl.form.fullName.value = user?.displayName
+    applyTpl.form.email.value = user?.emails[0]?.value
 
     viewData =
       partials:
