@@ -81,11 +81,6 @@ apply:
         required: false
         readonly: false
         html: <input type="file" class="screenshot" accept="image/*" id="screenshot" name="screenshot">
-thanks:
-  blurb: "Thank you"
-  detail: 
-      "Your application is being processed. When you are approved, an
-      invitation to Slack will be emailed to the address provided."
 login:
   blurb: "Thanks for your interest in joining!"
   detail: 
