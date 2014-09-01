@@ -28,7 +28,7 @@ module.exports = (robot) ->
   loginTpl.team = team
 
   robot.brain.on 'loaded', ->
-    robot.brain.data.ingressAgents ?= []
+    robot.brain.data.slackApplicants ?= []
 
   app.engine 'html', cons.hogan
   app.set 'view engine', 'html'
@@ -80,13 +80,13 @@ module.exports = (robot) ->
 
       res.render 'thanks', viewData
 
-      user.agentName = req.body.agentName.slice 0, 32
+      user.username = req.body.username.slice 0, 32
       user.community = req.body.community.slice 0, 140
       user.comments = req.body.comments.slice 0, 140
 
-      robot.brain.data.ingressAgents = robot.brain.data.ingressAgents.filter (agent) ->
+      robot.brain.data.slackApplicants = robot.brain.data.slackApplicants.filter (agent) ->
         agent.emails[0].value != user.emails[0].value
-      robot.brain.data.ingressAgents.push user
+      robot.brain.data.slackApplicants.push user
       robot.brain.save()
 
       payload =
@@ -104,7 +104,7 @@ module.exports = (robot) ->
             value: user.emails[0].value
             short: true},
             {title: 'Agent Name'
-            value: user.agentName
+            value: user.username
             short: true},
             {title: 'Community'
             value: user.community or '<none>'
