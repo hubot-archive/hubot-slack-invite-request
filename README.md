@@ -5,6 +5,12 @@
 
 > This script is designed specifically for use with the [Slack adapter](https://github.com/tinyspeck/hubot-slack).
 
+---
+
+> **NB!** This script currently depends on un-merged changes to the Hubot core source. As of right now, you must specify `git://github.com/therealklanni/hubot.git#18146ab4` as the package version for `hubot` in your `package.json`. This notice will be removed when the changes are merged upstream to hubot core.
+
+---
+
 Serves pages from your Hubot which authenticates users via Google Sign-In and 
 then displays a form for requesting an invite to a [Slack](http://slack.com) team.
 When the form is submitted, the details are posted to your channel/group on Slack.
