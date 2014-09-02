@@ -25,7 +25,6 @@ Then add `"hubot-slack-invite-request"` to `external-scripts.json`
 
 ### Environment variables
 
-* `HUBOT_SLACK_TEAM` - your team name
 * `HUBOT_SLACK_ADMIN_CHANNEL` - the destination for the request notifications from Hubot; this can be a public channel or private group.
 * `HUBOT_BASE_URL` - the base URL for where your hubot lives (e.g. http://myhubot.com/), *please include the trailing slash*
 
