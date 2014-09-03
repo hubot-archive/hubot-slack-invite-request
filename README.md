@@ -45,6 +45,7 @@ Developer Console](https://console.developers.google.com) to set up a new projec
 
 ### Environment variables
 
+* `EXPRESS_STATIC` - absolute path to the `src/static` directory of this module (e.g. `/opt/hubot/node_modules/hubot-slack-invite-request/src/public`)
 * `HUBOT_SLACK_ADMIN_CHANNEL` - the destination for the request notifications from Hubot; this can be a public channel or private group.
 * `HUBOT_BASE_URL` - the base URL for where your hubot lives (e.g. http://myhubot.com/), *please include the trailing slash*
 
