@@ -35,7 +35,7 @@ To use this script, you will need a Google API developer key. Visit the [Google
 Developer Console](https://console.developers.google.com) to set up a new project.
 
 1. In the Developer Console, click `Add Project` to create a new project.
-2. On the Porject Dashboard, click `Enable an API` and turn on `Google+ API`
+2. On the Project Dashboard, click `Enable an API` and turn on `Google+ API`
 3. Click on `Credentials` on the left navigation (under "APIs and Auth")
 4. Click on `Create new Client ID` under "OAuth"
 5. Choose "Web application"
