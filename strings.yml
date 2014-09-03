@@ -89,3 +89,4 @@ login:
   subtext:
     "Your public profile information and public G+ activity will be 
     used to verify your identity."
+  clientID: "paste your client ID here"
