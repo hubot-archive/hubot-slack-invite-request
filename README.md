@@ -1,3 +1,5 @@
+> :warning: DEPRECATION NOTICE — this project is no longer maintained, please try [slack-invite-request](https://github.com/therealklanni/slack-invite-request) instead
+
 # Slack invitation request page for Hubot
 
 [![Build Status](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request.svg)](https://travis-ci.org/hubot-scripts/hubot-slack-invite-request)
